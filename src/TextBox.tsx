@@ -7,17 +7,13 @@ type TextBoxProps = {
 }
 
 class TextBox extends React.Component<TextBoxProps> {
-	constructor(props: any) {
-    super(props);
-  }
-
   handleChange(event: ChangeEvent<HTMLTextAreaElement>) {
 		this.props.onChange(event.target.value)
 	}
 
   render() {
     return (
-      <form>
+      <form className="TextBox">
 				<textarea value={this.props.value} onChange={this.handleChange.bind(this)} />
       </form>
     );

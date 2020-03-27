@@ -36,8 +36,10 @@ class App extends React.Component<{}, AppState> {
   render() {
     return (
       <div className="App">
-        <TextBox value={this.state.leftValue} onChange={this.onTextBoxChange.bind(this, TextType.LEFT)}/>
-        <TextBox value={this.state.rightValue} onChange={this.onTextBoxChange.bind(this, TextType.RIGHT)}/>
+        <div className="InputBoxes">
+          <TextBox value={this.state.leftValue} onChange={this.onTextBoxChange.bind(this, TextType.LEFT)}/>
+          <TextBox value={this.state.rightValue} onChange={this.onTextBoxChange.bind(this, TextType.RIGHT)}/>
+        </div>
         <ReactDiffViewer oldValue={this.state.leftValue} newValue={this.state.rightValue} splitView={true} useDarkTheme={true}/>
       </div>
     );
