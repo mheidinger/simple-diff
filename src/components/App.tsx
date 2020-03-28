@@ -5,6 +5,7 @@ import './App.css';
 import TextBox from './TextBox';
 import { createMuiTheme, ThemeProvider, IconButton } from '@material-ui/core';
 import { Settings } from './Settings';
+import logo from '../resources/logo.png'
 
 enum TextType {
   LEFT, RIGHT
@@ -62,14 +63,18 @@ class App extends React.Component<{}, AppState> {
     return (
       <ThemeProvider theme={darkTheme}>
         <div className="App">
-          <Settings
-            showDiffOnly={this.state.showDiffOnly}
-            splitView={this.state.splitView}
-            disableWordDiff={this.state.disableWordDiff}
-            diffMethod={this.state.diffMethod}
-            settingsDiffMethodChange={this.settingsDiffMethodChange.bind(this)}
-            settingsToggleChange={this.settingsToggleChange.bind(this)}
-          />
+          <div className="Header">
+            <img src={logo} alt="logo" id="logo"/>
+            <Settings
+              showDiffOnly={this.state.showDiffOnly}
+              splitView={this.state.splitView}
+              disableWordDiff={this.state.disableWordDiff}
+              diffMethod={this.state.diffMethod}
+              settingsDiffMethodChange={this.settingsDiffMethodChange.bind(this)}
+              settingsToggleChange={this.settingsToggleChange.bind(this)}
+            />
+          </div>
+
           <div className="InputBoxes">
             <TextBox value={this.state.leftValue} onChange={this.onTextBoxChange.bind(this, TextType.LEFT)}/>
             <IconButton aria-label="Swap texts" onClick={this.swapValues.bind(this)}>
@@ -77,6 +82,7 @@ class App extends React.Component<{}, AppState> {
             </IconButton>
             <TextBox value={this.state.rightValue} onChange={this.onTextBoxChange.bind(this, TextType.RIGHT)}/>
           </div>
+
           <div className="DiffViewer">
             <ReactDiffViewer
               useDarkTheme={true}

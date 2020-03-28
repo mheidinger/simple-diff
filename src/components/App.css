@@ -1,3 +1,14 @@
+.Header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+#logo {
+  width: 3vw;
+  padding-left: 15px;
+}
+
 .InputBoxes {
   display: flex;
   align-items: center;
