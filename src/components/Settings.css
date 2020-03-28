@@ -5,12 +5,3 @@
   margin-top: 10px;
   color: white;
 }
-
-.InputBoxes {
-  display: flex;
-  align-items: center;
-}
-
-.DiffViewer {
-  margin: 10px;
-}

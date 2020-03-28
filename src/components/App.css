@@ -1,0 +1,8 @@
+.InputBoxes {
+  display: flex;
+  align-items: center;
+}
+
+.DiffViewer {
+  margin: 10px;
+}
