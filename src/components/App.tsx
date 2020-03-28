@@ -6,6 +6,7 @@ import TextBox from './TextBox';
 import { createMuiTheme, ThemeProvider, IconButton } from '@material-ui/core';
 import { Settings } from './Settings';
 import logo from '../resources/logo.png'
+import { Footer } from './Footer';
 
 enum TextType {
   LEFT, RIGHT
@@ -96,6 +97,7 @@ class App extends React.Component<{}, AppState> {
               rightTitle="Changed"
             />
           </div>
+          <Footer/>
         </div>
       </ThemeProvider>
     );
