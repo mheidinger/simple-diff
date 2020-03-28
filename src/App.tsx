@@ -1,7 +1,9 @@
 import React from 'react';
-import ReactDiffViewer from 'react-diff-viewer';
+import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer';
+import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
 import './App.css';
 import TextBox from './TextBox';
+import { FormControl, FormControlLabel, Switch, Select, MenuItem, FormHelperText } from '@material-ui/core';
 
 enum TextType {
   LEFT, RIGHT
@@ -10,6 +12,10 @@ enum TextType {
 type AppState = {
   leftValue: string,
   rightValue: string,
+  splitView: boolean,
+  showDiffOnly: boolean,
+  disableWordDiff: boolean,
+  diffMethod: DiffMethod,
 }
 
 class App extends React.Component<{}, AppState> {
@@ -17,8 +23,12 @@ class App extends React.Component<{}, AppState> {
     super(props);
 
     this.state = {
-      leftValue: "Text here!",
-      rightValue: "Comparison here!"
+      leftValue: "Original here!",
+      rightValue: "Changed here!",
+      splitView: true,
+      showDiffOnly: false,
+      disableWordDiff: false,
+      diffMethod: DiffMethod.CHARS,
     };
   }
 
@@ -33,14 +43,68 @@ class App extends React.Component<{}, AppState> {
     }
   }
 
+  swapValues() {
+    this.setState({leftValue: this.state.rightValue, rightValue: this.state.leftValue});
+  }
+
+  settingsToggleChange(event: React.ChangeEvent<HTMLInputElement>, checked: boolean) {
+    this.setState({...this.state, [event.target.name]: checked});
+  }
+
+  settingsDiffMethodChange(event: React.ChangeEvent<{ name?: string; value: unknown }>, child: React.ReactNode) {
+    this.setState({diffMethod: event.target.value as DiffMethod});
+  }
+
   render() {
     return (
       <div className="App">
+        <div className="Settings">
+          <FormControlLabel
+            control={<Switch checked={this.state.splitView} onChange={this.settingsToggleChange.bind(this)} name="splitView"/>}
+            label="Split View"
+          />
+          <FormControlLabel
+            control={<Switch checked={this.state.showDiffOnly} onChange={this.settingsToggleChange.bind(this)} name="showDiffOnly"/>}
+            label="Show Diff Only"
+          />
+          <FormControlLabel
+            control={<Switch checked={this.state.disableWordDiff} onChange={this.settingsToggleChange.bind(this)} name="disableWordDiff"/>}
+            label="Disable Word Diff"
+          />
+          <FormControl>
+            <Select
+              value={this.state.diffMethod}
+              onChange={this.settingsDiffMethodChange.bind(this)}
+            >
+              <MenuItem value={DiffMethod.CHARS}>Characters</MenuItem>
+              <MenuItem value={DiffMethod.WORDS}>Words</MenuItem>
+              <MenuItem value={DiffMethod.WORDS_WITH_SPACE}>Words with space</MenuItem>
+              <MenuItem value={DiffMethod.LINES}>Lines</MenuItem>
+              <MenuItem value={DiffMethod.TRIMMED_LINES}>Trimmed Lines</MenuItem>
+              <MenuItem value={DiffMethod.SENTENCES}>Sentences</MenuItem>
+              <MenuItem value={DiffMethod.CSS}>CSS</MenuItem>
+            </Select>
+            <FormHelperText>Method used for diffing strings</FormHelperText>
+          </FormControl>
+        </div>
         <div className="InputBoxes">
           <TextBox value={this.state.leftValue} onChange={this.onTextBoxChange.bind(this, TextType.LEFT)}/>
+          <SwapHorizIcon fontSize="large" color="secondary" onClick={this.swapValues.bind(this)}/>
           <TextBox value={this.state.rightValue} onChange={this.onTextBoxChange.bind(this, TextType.RIGHT)}/>
         </div>
-        <ReactDiffViewer oldValue={this.state.leftValue} newValue={this.state.rightValue} splitView={true} useDarkTheme={true}/>
+        <div className="DiffViewer">
+          <ReactDiffViewer
+            useDarkTheme={true}
+            oldValue={this.state.leftValue}
+            newValue={this.state.rightValue}
+            splitView={this.state.splitView}
+            showDiffOnly={this.state.showDiffOnly}
+            disableWordDiff={this.state.disableWordDiff}
+            compareMethod={this.state.diffMethod}
+            leftTitle="Original"
+            rightTitle="Changed"
+          />
+        </div>
       </div>
     );
   }
