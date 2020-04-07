@@ -2,7 +2,7 @@
 
 <img align="right" width="180px" src="src/resources/logo.png">
 
-#### HarborMaster is a simple to use online diff tool.
+#### simple-diff is a simple to use online diff tool.
 
 ---
 
