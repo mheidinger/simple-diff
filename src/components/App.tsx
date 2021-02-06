@@ -33,7 +33,7 @@ class App extends React.Component<{}, AppState> {
       splitView: true,
       showDiffOnly: false,
       disableWordDiff: false,
-      diffMethod: DiffMethod.CHARS,
+      diffMethod: DiffMethod.WORDS,
     };
   }
 
