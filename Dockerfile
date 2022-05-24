@@ -1,4 +1,4 @@
-FROM node:13.12-alpine3.11 as builder
+FROM node:13.14-alpine3.11 as builder
 
 COPY . .
 RUN npm install
