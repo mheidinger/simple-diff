@@ -1,10 +1,10 @@
 import React from 'react';
-import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer';
+import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer-continued';
 import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
 import './App.css';
 import TextBox from './TextBox';
 import { createMuiTheme, ThemeProvider, IconButton } from '@material-ui/core';
-import { Settings } from './Settings';
+import { AvailableSettings, Settings } from './Settings';
 import logo from '../resources/logo.png'
 import { Footer } from './Footer';
 
@@ -12,7 +12,7 @@ enum TextType {
   LEFT, RIGHT
 }
 
-type AppState = Settings & {
+type AppState = AvailableSettings & {
   leftValue: string,
   rightValue: string,
 }

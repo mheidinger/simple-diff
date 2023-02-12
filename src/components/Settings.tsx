@@ -1,16 +1,16 @@
 import React, { FunctionComponent } from 'react';
-import { DiffMethod } from 'react-diff-viewer';
+import { DiffMethod } from 'react-diff-viewer-continued';
 import { FormControlLabel, Switch, FormControl, Select, MenuItem, FormHelperText } from '@material-ui/core';
 import './Settings.css'
 
-export type Settings = {
+export type AvailableSettings = {
 	splitView: boolean,
 	showDiffOnly: boolean,
 	disableWordDiff: boolean,
 	diffMethod: DiffMethod,
 }
 
-type SettingsProps = Settings & {
+type SettingsProps = AvailableSettings & {
   settingsToggleChange(event: React.ChangeEvent<HTMLInputElement>, checked: boolean): void,
   settingsDiffMethodChange(event: React.ChangeEvent<{ name?: string; value: unknown }>, child: React.ReactNode): void,
 }
