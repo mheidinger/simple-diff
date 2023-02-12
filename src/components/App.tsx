@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ChangeEvent, ReactNode } from 'react';
 import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer-continued';
-import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import './App.css';
 import TextBox from './TextBox';
-import { ThemeProvider, IconButton } from '@material-ui/core';
-import { createTheme } from '@material-ui/core/styles';
+import { ThemeProvider, StyledEngineProvider, IconButton, SelectChangeEvent } from '@mui/material';
+import { createTheme } from '@mui/material/styles';
 import { AvailableSettings, Settings } from './Settings';
 import logo from '../resources/logo.png'
 import { Footer } from './Footer';
@@ -20,7 +20,7 @@ type AppState = AvailableSettings & {
 
 const darkTheme = createTheme({
   palette: {
-    type: 'dark',
+    mode: 'dark',
   },
 });
 
@@ -53,54 +53,56 @@ class App extends React.Component<{}, AppState> {
     this.setState({leftValue: this.state.rightValue, rightValue: this.state.leftValue});
   }
 
-  settingsToggleChange(event: React.ChangeEvent<HTMLInputElement>, checked: boolean) {
+  settingsToggleChange(event: ChangeEvent<HTMLInputElement>, checked: boolean) {
     this.setState({...this.state, [event.target.name]: checked});
   }
 
-  settingsDiffMethodChange(event: React.ChangeEvent<{ name?: string; value: unknown }>, child: React.ReactNode) {
+  settingsDiffMethodChange(event: SelectChangeEvent, child: ReactNode) {
     this.setState({diffMethod: event.target.value as DiffMethod});
   }
 
   render() {
     return (
-      <ThemeProvider theme={darkTheme}>
-        <div className="App">
-          <div className="Header">
-            <img src={logo} alt="logo" id="logo"/>
-            <Settings
-              showDiffOnly={this.state.showDiffOnly}
-              splitView={this.state.splitView}
-              disableWordDiff={this.state.disableWordDiff}
-              diffMethod={this.state.diffMethod}
-              settingsDiffMethodChange={this.settingsDiffMethodChange.bind(this)}
-              settingsToggleChange={this.settingsToggleChange.bind(this)}
-            />
-          </div>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={darkTheme}>
+          <div className="App">
+            <div className="Header">
+              <img src={logo} alt="logo" id="logo"/>
+              <Settings
+                showDiffOnly={this.state.showDiffOnly}
+                splitView={this.state.splitView}
+                disableWordDiff={this.state.disableWordDiff}
+                diffMethod={this.state.diffMethod}
+                settingsDiffMethodChange={this.settingsDiffMethodChange.bind(this)}
+                settingsToggleChange={this.settingsToggleChange.bind(this)}
+              />
+            </div>
 
-          <div className="InputBoxes">
-            <TextBox value={this.state.leftValue} onChange={this.onTextBoxChange.bind(this, TextType.LEFT)}/>
-            <IconButton aria-label="Swap texts" onClick={this.swapValues.bind(this)}>
-              <SwapHorizIcon fontSize="large"/>
-            </IconButton>
-            <TextBox value={this.state.rightValue} onChange={this.onTextBoxChange.bind(this, TextType.RIGHT)}/>
-          </div>
+            <div className="InputBoxes">
+              <TextBox value={this.state.leftValue} onChange={this.onTextBoxChange.bind(this, TextType.LEFT)}/>
+              <IconButton aria-label="Swap texts" onClick={this.swapValues.bind(this)} size="large">
+                <SwapHorizIcon fontSize="large"/>
+              </IconButton>
+              <TextBox value={this.state.rightValue} onChange={this.onTextBoxChange.bind(this, TextType.RIGHT)}/>
+            </div>
 
-          <div className="DiffViewer">
-            <ReactDiffViewer
-              useDarkTheme={true}
-              oldValue={this.state.leftValue}
-              newValue={this.state.rightValue}
-              splitView={this.state.splitView}
-              showDiffOnly={this.state.showDiffOnly}
-              disableWordDiff={this.state.disableWordDiff}
-              compareMethod={this.state.diffMethod}
-              leftTitle="Original"
-              rightTitle="Changed"
-            />
+            <div className="DiffViewer">
+              <ReactDiffViewer
+                useDarkTheme={true}
+                oldValue={this.state.leftValue}
+                newValue={this.state.rightValue}
+                splitView={this.state.splitView}
+                showDiffOnly={this.state.showDiffOnly}
+                disableWordDiff={this.state.disableWordDiff}
+                compareMethod={this.state.diffMethod}
+                leftTitle="Original"
+                rightTitle="Changed"
+              />
+            </div>
+            <Footer/>
           </div>
-          <Footer/>
-        </div>
-      </ThemeProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
     );
   }
 }

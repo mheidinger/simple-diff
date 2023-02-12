@@ -1,6 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, ChangeEvent, ReactNode } from 'react';
 import { DiffMethod } from 'react-diff-viewer-continued';
-import { FormControlLabel, Switch, FormControl, Select, MenuItem, FormHelperText } from '@material-ui/core';
+import { FormControlLabel, Switch, FormControl, MenuItem, FormHelperText } from '@mui/material';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import './Settings.css'
 
 export type AvailableSettings = {
@@ -11,13 +12,13 @@ export type AvailableSettings = {
 }
 
 type SettingsProps = AvailableSettings & {
-  settingsToggleChange(event: React.ChangeEvent<HTMLInputElement>, checked: boolean): void,
-  settingsDiffMethodChange(event: React.ChangeEvent<{ name?: string; value: unknown }>, child: React.ReactNode): void,
+  settingsToggleChange(event: ChangeEvent<HTMLInputElement>, checked: boolean): void,
+  settingsDiffMethodChange(event: SelectChangeEvent, child: ReactNode): void,
 }
 
 export const Settings: FunctionComponent<SettingsProps> = function(props) {
 	return (
-		<div className="Settings">
+        <div className="Settings">
 			<FormControlLabel
 				control={<Switch checked={props.splitView} onChange={props.settingsToggleChange} name="splitView"/>}
 				label="Split View"
@@ -30,8 +31,11 @@ export const Settings: FunctionComponent<SettingsProps> = function(props) {
 				control={<Switch checked={props.disableWordDiff} onChange={props.settingsToggleChange} name="disableWordDiff"/>}
 				label="Disable Word Diff"
 			/>
-			<FormControl>
-				<Select value={props.diffMethod} onChange={props.settingsDiffMethodChange}>
+			<FormControl variant="standard">
+				<Select
+          value={props.diffMethod}
+          onChange={props.settingsDiffMethodChange}
+				>
 					<MenuItem value={DiffMethod.CHARS}>Characters</MenuItem>
 					<MenuItem value={DiffMethod.WORDS}>Words</MenuItem>
 					<MenuItem value={DiffMethod.WORDS_WITH_SPACE}>Words with space</MenuItem>
@@ -43,5 +47,5 @@ export const Settings: FunctionComponent<SettingsProps> = function(props) {
 				<FormHelperText>Method used for diffing strings</FormHelperText>
 			</FormControl>
 		</div>
-	);
+    );
 }
