@@ -3,7 +3,8 @@ import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer-continued';
 import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
 import './App.css';
 import TextBox from './TextBox';
-import { createMuiTheme, ThemeProvider, IconButton } from '@material-ui/core';
+import { ThemeProvider, IconButton } from '@material-ui/core';
+import { createTheme } from '@material-ui/core/styles';
 import { AvailableSettings, Settings } from './Settings';
 import logo from '../resources/logo.png'
 import { Footer } from './Footer';
@@ -17,7 +18,7 @@ type AppState = AvailableSettings & {
   rightValue: string,
 }
 
-const darkTheme = createMuiTheme({
+const darkTheme = createTheme({
   palette: {
     type: 'dark',
   },
