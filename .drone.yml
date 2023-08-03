@@ -2,11 +2,11 @@ kind: pipeline
 name: default
 
 steps:
-- name: push-registry
+- name: push-private-registry
   image: plugins/docker
   settings:
-    repo: registry.max-heidinger.de/simple-diff
-    registry: registry.max-heidinger.de
+    repo: registry-castor.max-heidinger.de/simple-diff
+    registry: registry-castor.max-heidinger.de
     tags:
       - latest
       - ci-${DRONE_BUILD_NUMBER}
@@ -14,6 +14,25 @@ steps:
       from_secret: tac_username
     password:
       from_secret: tac_password
+  when:
+    branch:
+    - master
+    event:
+      exclude:
+      - pull_request
+
+- name: push-public-registry
+  image: plugins/docker
+  settings:
+    repo: ghcr.io/mheidinger/simple-diff
+    registry: ghcr.io
+    tags:
+      - latest
+      - ci-${DRONE_BUILD_NUMBER}
+    username:
+      from_secret: github_username
+    password:
+      from_secret: github_password
   when:
     branch:
     - master
