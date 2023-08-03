@@ -12,7 +12,7 @@
 
 ### Docker
 
-Docker images are available on [Docker Hub](https://hub.docker.com/r/mheidinger/simple-diff).
+Docker images are available on [GHCR](https://github.com/users/mheidinger/packages/container/package/simple-diff).
 
 ### Compiling and running locally
 
