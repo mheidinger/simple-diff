@@ -43,7 +43,7 @@ steps:
 - name: update-deployment
   image: plugins/webhook
   settings:
-    urls: https://portainer.max-heidinger.de/api/webhooks/8ed33d71-1e91-4ddc-ade5-8744f515be90
+    urls: https://portainer-castor.max-heidinger.de/api/webhooks/93d0565f-6f3a-4c27-9d2f-8ca7278b79b9
     username:
       from_secret: tac_username
     password:
