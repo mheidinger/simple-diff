@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.4.0
 
       # https://github.com/docker/setup-buildx-action
       - name: Set up Docker Buildx
@@ -54,7 +54,7 @@ jobs:
     steps:
       # https://github.com/distributhor/workflow-webhook
       - name: Deploy
-        uses: distributhor/workflow-webhook@v3
+        uses: distributhor/workflow-webhook@v3.0.8
         with:
           webhook_type: "json-extended"
           webhook_url: ${{ secrets.WEBHOOK_URL }}
