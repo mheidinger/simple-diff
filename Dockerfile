@@ -1,4 +1,4 @@
-FROM node:20.5-alpine as builder
+FROM node:24-alpine AS builder
 
 COPY . .
 RUN npm install

@@ -16,6 +16,8 @@ Docker images are available on [GHCR](https://github.com/users/mheidinger/packag
 
 ### Compiling and running locally
 
+Use Node.js 24 LTS, matching the Docker builder. Older Node.js releases such as 20.5 lack APIs required by the build tooling.
+
 Install all dependencies with npm
 ```
 npm install
