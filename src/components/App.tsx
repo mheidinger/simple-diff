@@ -88,6 +88,10 @@ class App extends React.Component<{}, AppState> {
 
             <div className="DiffViewer">
               <ReactDiffViewer
+                styles={{
+                  contentText: { margin: 0 },
+                  titleBlock: { height: 'auto' },
+                }}
                 useDarkTheme={true}
                 oldValue={this.state.leftValue}
                 newValue={this.state.rightValue}
